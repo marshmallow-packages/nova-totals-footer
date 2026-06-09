@@ -23,7 +23,7 @@ class ToolServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             Nova::mix('nova-totals-footer', __DIR__ . '/../dist/mix-manifest.json');
-            Field::macro('calculate', function (string $method, string $title, string $postfix = '', string $prefix = '', string $align = 'right', string $titleAlign = 'right', bool $hideTitle = false) {
+            Field::macro('calculate', function (string $method, string $title, string $postfix = '', string $prefix = '', string $align = 'right', string $titleAlign = 'right', bool $hideTitle = false, ?int $decimals = null) {
 
                 /** @var Field $field */
                 $field = $this;
@@ -36,6 +36,7 @@ class ToolServiceProvider extends ServiceProvider
                         'totalsAlignment' => $align,
                         'totalsTitleAlignment' => $titleAlign,
                         'totalsHideTitle' => $hideTitle,
+                        'decimals' => $decimals,
                     ]);
             });
         });

@@ -20,12 +20,13 @@ class CalculateController extends Controller
                 $value = Str::isJson($value) ? json_decode($value, true) : $value;
                 $index_name = Arr::get($value, 'indexName');
                 $function = Arr::get($value, 'method');
+                $decimals = Arr::get($value, 'decimals');
                 if ($index_name && $function) {
                     $calculated_value = $request->toQuery()->{$function}($index_name);
                     Arr::set(
                         $result,
                         $index_name,
-                        $this->formatCalculatedValue($calculated_value)
+                        $this->formatCalculatedValue($calculated_value, $decimals)
                     );
                 }
             }
@@ -39,8 +40,8 @@ class CalculateController extends Controller
         ]);
     }
 
-    protected function formatCalculatedValue(int|float $calculated_value): string
+    protected function formatCalculatedValue(int|float $calculated_value, ?int $decimals = null): string
     {
-        return number_format($calculated_value) ?? 0;
+        return number_format($calculated_value, $decimals ?? 0);
     }
 }

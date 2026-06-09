@@ -145,7 +145,11 @@ export default {
         let fields = {
             search: queryStringData[this.getQueryParameter('search')] || '',
             filters: queryStringData[this.getQueryParameter('filter')] || '',
-            calculate: this.calculate
+            calculate: this.calculate,
+            viaResource: this.viaResource,
+            viaResourceId: this.viaResourceId,
+            viaRelationship: this.viaRelationship,
+            relationshipType: this.relationshipType,
         };
 
         Nova.request()
@@ -178,6 +182,7 @@ export default {
                     this.putFiledCalculate({
                         indexName: field.sortableUriKey,
                         method: field.calculate_method,
+                        decimals: field.decimals,
                         value: 0,
                     });
                 }
