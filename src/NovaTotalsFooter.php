@@ -6,7 +6,7 @@ class NovaTotalsFooter
 {
     public static bool $hideHeader = false;
 
-    public static function hideHeader()
+    public static function hideHeader(): void
     {
         self::$hideHeader = true;
     }

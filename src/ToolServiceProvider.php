@@ -2,12 +2,12 @@
 
 namespace Marshmallow\NovaTotalsFooter;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Events\ServingNova;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Nova;
 use Marshmallow\NovaTotalsFooter\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
@@ -22,22 +22,21 @@ class ToolServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::mix('nova-totals-footer', __DIR__ . '/../dist/mix-manifest.json');
+            Nova::mix('nova-totals-footer', __DIR__.'/../dist/mix-manifest.json');
             Field::macro('calculate', function (string $method, string $title, string $postfix = '', string $prefix = '', string $align = 'right', string $titleAlign = 'right', bool $hideTitle = false, ?int $decimals = null) {
-
                 /** @var Field $field */
                 $field = $this;
 
-                return $field->withMeta(['calculate_method' => $method])
-                    ->withMeta(['title' => $title])
-                    ->withMeta([
-                        'postfix' => $postfix,
-                        'prefix' => $prefix,
-                        'totalsAlignment' => $align,
-                        'totalsTitleAlignment' => $titleAlign,
-                        'totalsHideTitle' => $hideTitle,
-                        'decimals' => $decimals,
-                    ]);
+                return $field->withMeta([
+                    'calculate_method' => $method,
+                    'title' => $title,
+                    'postfix' => $postfix,
+                    'prefix' => $prefix,
+                    'totalsAlignment' => $align,
+                    'totalsTitleAlignment' => $titleAlign,
+                    'totalsHideTitle' => $hideTitle,
+                    'decimals' => $decimals,
+                ]);
             });
         });
     }
@@ -54,18 +53,10 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Nova::router(['nova', 'nova.auth', Authorize::class], 'nova-totals-footer')
-            ->group(__DIR__ . '/../routes/inertia.php');
+            ->group(__DIR__.'/../routes/inertia.php');
 
         Route::middleware(['nova', 'nova.auth', Authorize::class])
             ->prefix('nova-vendor/nova-totals-footer')
-            ->group(__DIR__ . '/../routes/api.php');
-    }
-
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
+            ->group(__DIR__.'/../routes/api.php');
     }
 }
