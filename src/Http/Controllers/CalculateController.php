@@ -2,14 +2,13 @@
 
 namespace Marshmallow\NovaTotalsFooter\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 use Marshmallow\NovaTotalsFooter\Http\Request\CalculationRequest;
+use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 
-class CalculateController extends Controller
+class CalculateController
 {
     public function __invoke(CalculationRequest $request): JsonResponse
     {
