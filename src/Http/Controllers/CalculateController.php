@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Marshmallow\NovaTotalsFooter\Http\Request\CalculationRequest;
 use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 
-class CalculateController extends Controller
+class CalculateController
 {
     public function __invoke(CalculationRequest $request): JsonResponse
     {

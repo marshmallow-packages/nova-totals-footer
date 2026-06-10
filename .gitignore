@@ -5,7 +5,7 @@ auth.json
 package-lock.json
 composer.phar
 composer.lock
-phpunit.xml
+.phpunit.cache
 .phpunit.result.cache
 .DS_Store
 Thumbs.db

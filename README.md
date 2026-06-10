@@ -66,6 +66,18 @@ parameters:
         - vendor/marshmallow/nova-totals-footer/stubs/calculate-macro.stub
 ```
 
+## Testing
+
+The package ships a [Pest](https://pestphp.com) + [Orchestra Testbench](https://github.com/orchestral/testbench) suite. Nova is a private dependency, so configure your credentials before installing:
+
+```bash
+composer config http-basic.nova.laravel.com "your-email" "your-license-key"
+composer install
+composer test
+```
+
+CI (`.github/workflows/tests.yml`) runs the suite against PHP 8.2–8.4 and expects `NOVA_USERNAME` and `NOVA_LICENSE_KEY` repository secrets.
+
 ## Licence
 
 The MIT License (MIT). Please see [License File](LICENCE) for more information.
