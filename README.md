@@ -3,7 +3,7 @@
 # Laravel Nova Totals Footer
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/marshmallow/nova-totals-footer.svg?style=flat-square)](https://packagist.org/packages/marshmallow/nova-totals-footer)
-[![Tests](https://img.shields.io/github/actions/workflow/status/marshmallow-packages/nova-totals-footer/tests.yml?branch=develop&label=tests&style=flat-square)](https://github.com/marshmallow-packages/nova-totals-footer/actions/workflows/tests.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/marshmallow-packages/nova-totals-footer/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/marshmallow-packages/nova-totals-footer/actions/workflows/tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/marshmallow/nova-totals-footer.svg?style=flat-square)](https://packagist.org/packages/marshmallow/nova-totals-footer)
 
 This [Laravel Nova](https://nova.laravel.com) package adds a totals footer to your resource index tables, calculating the total of any columns you choose.
@@ -84,7 +84,7 @@ composer install
 composer test
 ```
 
-CI (`.github/workflows/tests.yml`) runs the suite against PHP 8.2–8.4 and expects `NOVA_USERNAME` and `NOVA_LICENSE_KEY` repository secrets.
+CI (`.github/workflows/tests.yml`) runs the suite against PHP 8.2–8.4 and expects `NOVA_USERNAME` and `NOVA_PASSWORD` repository secrets.
 
 ## Contributing
 
