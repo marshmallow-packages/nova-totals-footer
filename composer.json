@@ -14,7 +14,9 @@
     },
     "require-dev": {
         "laravel/nova": "^5.0",
-        "laravel/nova-devtool": "^1.2"
+        "laravel/nova-devtool": "^1.2",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0"
     },
     "repositories": [
         {
@@ -27,6 +29,11 @@
             "Marshmallow\\NovaTotalsFooter\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Marshmallow\\NovaTotalsFooter\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -34,8 +41,14 @@
             ]
         }
     },
+    "scripts": {
+        "test": "pest"
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

@@ -1,0 +1,37 @@
+<?php
+
+namespace Laravel\Nova\Fields;
+
+/**
+ * Stub describing the runtime `calculate()` macro registered on Nova's Field
+ * by marshmallow/nova-totals-footer, so static analysers (PHPStan / Larastan)
+ * recognise it without a `@phpstan-ignore` on every call site.
+ *
+ * Register it in your phpstan.neon:
+ *
+ *   parameters:
+ *       stubFiles:
+ *           - vendor/marshmallow/nova-totals-footer/stubs/calculate-macro.stub
+ */
+class Field
+{
+    /**
+     * Show a calculated total for this column in the resource index footer.
+     *
+     * @param  'sum'|'count'|'avg'|'min'|'max'  $method
+     * @param  'left'|'right'|'center'  $align
+     * @param  'left'|'right'|'center'  $titleAlign
+     * @return $this
+     */
+    public function calculate(
+        string $method,
+        string $title,
+        string $postfix = '',
+        string $prefix = '',
+        string $align = 'right',
+        string $titleAlign = 'right',
+        bool $hideTitle = false,
+        ?int $decimals = null
+    ) {
+    }
+}

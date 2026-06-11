@@ -2,45 +2,45 @@
 
 namespace Marshmallow\NovaTotalsFooter\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 use Marshmallow\NovaTotalsFooter\Http\Request\CalculationRequest;
+use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 
-class CalculateController extends Controller
+class CalculateController
 {
     public function __invoke(CalculationRequest $request): JsonResponse
     {
-        $result = [];
+        $totals = [];
 
-        if ($request->get('calculate') !== null) {
-            foreach ($request->get('calculate') as $value) {
-                $value = Str::isJson($value) ? json_decode($value, true) : $value;
-                $index_name = Arr::get($value, 'indexName');
-                $function = Arr::get($value, 'method');
-                if ($index_name && $function) {
-                    $calculated_value = $request->toQuery()->{$function}($index_name);
-                    Arr::set(
-                        $result,
-                        $index_name,
-                        $this->formatCalculatedValue($calculated_value)
-                    );
-                }
+        foreach ($request->get('calculate', []) as $calculation) {
+            $calculation = Str::isJson($calculation) ? json_decode($calculation, true) : $calculation;
+
+            $column = Arr::get($calculation, 'indexName');
+            $method = Arr::get($calculation, 'method');
+            $decimals = Arr::get($calculation, 'decimals');
+
+            if (! $column || ! $method) {
+                continue;
             }
+
+            $value = $request->toQuery()->{$method}($column);
+
+            Arr::set($totals, $column, $this->formatCalculatedValue($value, $decimals));
         }
 
         return response()->json([
-            'totals' => $result,
+            'totals' => $totals,
             'settings' => [
                 'hideHeader' => NovaTotalsFooter::$hideHeader,
             ],
         ]);
     }
 
-    protected function formatCalculatedValue(int|float $calculated_value): string
+    protected function formatCalculatedValue(int|float $value, ?int $decimals = null): string
     {
-        return number_format($calculated_value) ?? 0;
+        return number_format($value, $decimals ?? 0);
     }
 }

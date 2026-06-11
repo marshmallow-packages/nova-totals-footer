@@ -37,8 +37,13 @@ Currency::make('Revenue', 'revenue')
         hideTitle: true, // true, false (default)
         align: 'right', // left, right (default), center
         titleAlign: 'right', // left, right (default), center
+        decimals: 2, // number of decimals to format the total with (default: 0)
     ),
 ```
+
+> When the resource is shown through a relationship (e.g. a `HasMany` field on
+> another resource), the footer totals are calculated over the **related**
+> records only, matching the rows in the table.
 
 ### Hide the header off footer
 This sound weird, but sometimes we needed to hide the header of the footer. We didn't need this extra footer row. Is you need to hide this, you can call the method below.
@@ -48,6 +53,30 @@ use Marshmallow\NovaTotalsFooter\NovaTotalsFooter;
 
 NovaTotalsFooter::hideHeader();
 ```
+
+### Static analysis (PHPStan / Larastan)
+
+`calculate()` is a runtime macro on Nova's `Field`, so static analysers don't
+know about it by default. Register the shipped stub in your `phpstan.neon` to
+make it recognised (no more `@phpstan-ignore` on every call):
+
+```neon
+parameters:
+    stubFiles:
+        - vendor/marshmallow/nova-totals-footer/stubs/calculate-macro.stub
+```
+
+## Testing
+
+The package ships a [Pest](https://pestphp.com) + [Orchestra Testbench](https://github.com/orchestral/testbench) suite. Nova is a private dependency, so configure your credentials before installing:
+
+```bash
+composer config http-basic.nova.laravel.com "your-email" "your-license-key"
+composer install
+composer test
+```
+
+CI (`.github/workflows/tests.yml`) runs the suite against PHP 8.2–8.4 and expects `NOVA_USERNAME` and `NOVA_LICENSE_KEY` repository secrets.
 
 ## Licence
 
